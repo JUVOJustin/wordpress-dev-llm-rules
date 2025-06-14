@@ -1,9 +1,5 @@
 # WordPress Code Development
 
-## Environment & Folder Structure
-
-- **Development Context**: Plugins and themes are located within a full WordPress environment, typically under `wp-content/plugins` or `wp-content/themes`.
-
 ## General Coding & Language Guidelines
 
 ### All Languages
