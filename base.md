@@ -7,7 +7,7 @@
 - **Adhere to WordPress code styling**
 - **Provide docblocks** for all functions, classes, and files
 - **English only**: Always generate code and comments in English, regardless of input language
-- **Early Return/Exit**: Use early return/exit patterns for condition checks to simplify nesting and enhance readability
+- **Early Return/Exit**: ALWAYS use early return/exit patterns for condition checks to simplify nesting and enhance readability
 - **Focus on readability & clean code principles**
 
 ### PHP Specific Guidelines
