@@ -1,4 +1,5 @@
 # WordPress Code Development
+Base Coding rules for WordPress. ALWAYS read this when working on a WordPress project
 
 ## General Coding & Language Guidelines
 
