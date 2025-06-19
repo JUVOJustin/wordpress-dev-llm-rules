@@ -61,35 +61,7 @@ Base Coding rules for WordPress. ALWAYS read this when working on a WordPress pr
 ## Debugging & Quality Assurance
 
 ### Static code analysis (PHPStan)
-#### Third party classes
-When PHPStan reports "Class not found" or "unknown class" errors, add specific ignore patterns to the ignoreErrors section in phpstan.neon:
-```neon
-ignoreErrors:
-    # Ignore specific third-party class errors with descriptive comments
-    - '#.*(unknown class|invalid type|call to method .* on an unknown class) AC\\ListScreen.*#' # Admin Columns Pro classes
-    - '#.*(unknown class|invalid type|call to method .* on an unknown class) ExtendedPlugin\\ClassName.*#' # Other plugin example
-```
-**Create patterns that:**
-- Cover all error variations (unknown class, invalid type, method calls)
-- Are specific enough to target only intended classes
-- Include comments explaining which plugin/theme the ignored class belongs to
-
-**When to add exceptions:**
-- Only ignore errors for legitimate third-party dependencies
-- Document each pattern with a comment indicating the source plugin/theme
-- Group related patterns for the same plugin together
-
-#### WordPress Rest API Typings
-PHPStan cannot know the valid request parameters defined in your schema. Therefore, we always have to let PHPStan know which parameters are available. Like this
-
-```php
-/**
- * @param WP_REST_Request $request Full details about the request.
- * @return WP_REST_Response|WP_Error Response object on success, WP_Error object on failure.
- *
- * @phpstan-param WP_REST_Request<array{post?: int, orderby?: string}> $request
- */
-```
+For comprehensive PHPStan configuration, third-party class handling, REST API typings, and WordPress-specific patterns, see `rules/quality-assurance/phpstan.md`.
 
 ## Documentation & Repository Files
 
