@@ -14,7 +14,7 @@ This repository contains structured rules and patterns that help LLMs generate b
 * **MCP Server**: Use the [WordPress Dev Community MCP Server](https://github.com/Citation-Media/wordpress-dev-community-mcp-server) for seamless integration
 
 ### MCP Server
-My agency Citation Media does offer a free MCP Server. It serves the rules of this repo as well as other nice to have functionality.
+My agency [Citation Media](https://citation.media) does offer a free MCP Server. It serves the rules of this repo as well as other nice to have functionality.
 For **Claude Desktop, Windsurf or Cursor** add this to your MCP configuration:
 
 ```json
