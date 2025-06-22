@@ -13,6 +13,29 @@ This repository contains structured rules and patterns that help LLMs generate b
 * **Copying Rules**: You can copy rules from this repository to your LLM integration tool. Full control over the rules you want to use!
 * **MCP Server**: Use the [WordPress Dev Community MCP Server](https://github.com/Citation-Media/wordpress-dev-community-mcp-server) for seamless integration
 
+### MCP Server
+My agency Citation Media does offer a free MCP Server. It serves the rules of this repo as well as other nice to have functionality.
+For **Claude Desktop, Windsurf or Cursor** add this to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "wordpress-dev-docs": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://wordpress-dev-mcp.citation.media/sse"
+      ]
+    }
+  }
+}
+```
+
+For **Claude code** use:
+```bash
+claude mcp add wordpress-dev-docs --transport sse https://wordpress-dev-mcp.citation.media/sse -s project
+```
+
 ## 🤝 Contributing
 
 We encourage contributions from the WordPress development community! If you have rules, patterns, or best practices that would benefit other developers, please consider opening a Pull Request.
