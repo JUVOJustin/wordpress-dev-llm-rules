@@ -1,6 +1,6 @@
 # WordPress PHPStan Configuration & Rules
 
-Static analysis configuration and patterns for WordPress development with PHPStan.
+Static analysis configuration and patterns for WordPress development with PHPStan. ALWAYS follow these when running phpstan.
 
 ## Core Configuration Requirements
 
