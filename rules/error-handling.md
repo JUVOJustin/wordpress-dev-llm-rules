@@ -188,6 +188,25 @@ class Contact_Form_Handler {
 }
 ```
 
+To work with the wp error object you first need to check for the `success` property and then show the actual error message. Use this example method to get the error message.
+```js
+/**
+ * Extract error message from WP_Error response
+ * 
+ * @param {Object} response - AJAX response object
+ * @returns {string|null} Error message or null
+ */
+extractErrorMessage(response) {
+    // Handle WP_Error format where data is an array of error objects
+    if (!response.success && Array.isArray(response.data) && response.data.length > 0) {
+        // Get the first error message
+        return response.data[0].message || null;
+    }
+    
+    return null;
+}
+```
+
 ## Error Logging with wp_trigger_error
 
 ### When to Use wp_trigger_error
