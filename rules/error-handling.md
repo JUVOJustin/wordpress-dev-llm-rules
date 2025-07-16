@@ -139,25 +139,23 @@ class Posts_REST_Controller extends WP_REST_Controller {
 
 ### AJAX Implementation
 
+WordPress `wp_send_json_error()` accepts WP_Error instances directly, automatically formatting error codes, messages, and data for JSON response.
+
 ```php
 class Contact_Form_Handler {
     public function handle_contact_form(): void {
         $validation_result = $this->validate_contact_form($_POST);
         
         if (is_wp_error($validation_result)) {
-            wp_send_json_error([
-                'message' => __('Please correct the errors.', 'textdomain'),
-                'errors' => $this->format_errors_for_frontend($validation_result)
-            ]);
+            // wp_send_json_error() accepts WP_Error instances directly
+            wp_send_json_error($validation_result);
         }
         
         $result = $this->process_contact_form($_POST);
         
         if (is_wp_error($result)) {
-            wp_send_json_error([
-                'message' => $result->get_error_message(),
-                'code' => $result->get_error_code()
-            ]);
+            // wp_send_json_error() accepts WP_Error instances directly
+            wp_send_json_error($result);
         }
         
         wp_send_json_success(['message' => __('Message sent!', 'textdomain')]);
@@ -177,6 +175,7 @@ class Contact_Form_Handler {
         return $errors->has_errors() ? $errors : true;
     }
     
+    // Optional: Custom error formatting for specific frontend requirements
     private function format_errors_for_frontend(WP_Error $error): array {
         $formatted = [];
         foreach ($error->get_error_codes() as $code) {
