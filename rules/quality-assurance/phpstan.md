@@ -142,6 +142,22 @@ function get_user_data(): array {
 }
 ```
 
+### Hooks (Actions & Filters)
+Doclbocks of apply_filters() and do_action() are validated. The type of the first @param is definitive. No furhter validation of the filter output is needed. Considering strong stypings, an error as the result of a type missmatch caused by a faulty implementation of a third party using the hook is desired and does not need to be handled.
+
+```php
+/**
+ * Allows hooking into formatting of the price
+ *
+ * @param string $$value The formatted price.
+ * @param string|null $formatted The formatted price.
+ * @param float $price The raw price.
+ * @param string $locale Locale to localize pricing display.
+ * @param string $currency Currency Symbol.
+ */
+return apply_filters( 'autoscout_vehicle_price_formatted', $formatted, $price, $locale, $currency );
+```
+
 ## Action Scheduler
 ```php
 /**
