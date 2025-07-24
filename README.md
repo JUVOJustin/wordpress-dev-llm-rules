@@ -24,7 +24,7 @@ For **Claude Desktop, Windsurf or Cursor** add this to your MCP configuration:
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://wordpress-dev-mcp.citation.media/sse"
+        "https://wordpress-dev-mcp.citation.media/mcp"
       ]
     }
   }
@@ -33,7 +33,20 @@ For **Claude Desktop, Windsurf or Cursor** add this to your MCP configuration:
 
 For **Claude code** use:
 ```bash
-claude mcp add wordpress-dev-docs --transport sse https://wordpress-dev-mcp.citation.media/sse -s project
+claude mcp add wordpress-dev-docs --transport http https://wordpress-dev-mcp.citation.media/mcp -s project
+```
+
+For **Github Copilot** use:
+```json
+{
+  "mcpServers": {
+    "wordpress-dev-docs": {
+      "type": "http",
+      "url": "https://wordpress-dev-mcp.citation.media/mcp",
+      "tools": [ "*" ]
+    }
+  }
+}
 ```
 
 ## 🤝 Contributing
