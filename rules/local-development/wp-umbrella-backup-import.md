@@ -10,6 +10,22 @@ Move the downloaded `.tar.gz` backup file to your DDEV project folder and extrac
 tar -xvzf filename.tar.gz
 ```
 
+## Disable SMTP Plugins
+
+Disable SMTP plugins before import to prevent email sending attempts during development:
+
+```bash
+# Common SMTP plugins
+ddev wp plugin deactivate wp-mail-smtp
+ddev wp plugin deactivate easy-wp-smtp
+ddev wp plugin deactivate post-smtp
+ddev wp plugin deactivate wp-smtp
+ddev wp plugin deactivate smtp-mailer
+ddev wp plugin deactivate mailgun
+ddev wp plugin deactivate sendgrid-email-delivery-simplified
+ddev wp plugin deactivate wp-ses
+```
+
 ## Import Database
 
 Ensure your project is configured (`ddev config`) and running (`ddev start`). Enter the DDEV container and import all SQL files:
@@ -33,6 +49,12 @@ $ddev_settings = dirname(__FILE__) . '/wp-config-ddev.php';
 if (is_readable($ddev_settings) && !defined('DB_USER')) {
     require_once($ddev_settings);
 }
+```
+
+Add environment type for local development:
+
+```php
+define('WP_ENVIRONMENT_TYPE', 'local');
 ```
 
 If you changed the DB prefix, move it from `wp-config.php` to `wp-config-ddev.php` and remove the header comment in `wp-config-ddev.php` to prevent DDEV from resetting changes.
