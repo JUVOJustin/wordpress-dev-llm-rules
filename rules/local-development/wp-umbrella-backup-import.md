@@ -1,10 +1,6 @@
 # WP-Umbrella Backup Import in DDEV
 
-Comprehensive guide for importing WP-Umbrella backups into DDEV local development environments.
-
-## Overview
-
-WP-Umbrella provides comprehensive backup solutions that can be imported into DDEV for local development. This process requires requesting a full backup download and properly importing both database and files while managing SMTP plugin conflicts.
+Process for importing WP-Umbrella backups into DDEV local development environments.
 
 ## Prerequisites
 
@@ -12,142 +8,83 @@ WP-Umbrella provides comprehensive backup solutions that can be imported into DD
 - Access to WP-Umbrella dashboard
 - WP-CLI installed in DDEV container
 
-## Step 1: Request Full Backup
+## Import Process
 
-1. **Access WP-Umbrella Dashboard**: Navigate to your site's backup section
-2. **Request Full Backup**: Click on "Download Full Backup" or equivalent option
-3. **Wait for Notification**: You will receive both:
-   - Email notification with download link
-   - In-app notification in WP-Umbrella dashboard
-   
-⚠️ **Important**: The download link expires after approximately **15 minutes**. Download immediately upon receiving the notification.
+### 1. Request and Download Backup
 
-## Step 2: Download and Extract Backup
+1. Navigate to WP-Umbrella dashboard → Backups → "Download Full Backup"
+2. Download from email/dashboard notification immediately (⚠️ **15-minute expiration**)
+3. Extract archive to access database dump and WordPress files
 
-1. **Download the backup archive** from the provided link
-2. **Extract the archive** to access:
-   - Database dump file (usually `.sql` or `.sql.gz`)
-   - WordPress files directory
+### 2. Disable SMTP Plugins (Critical)
 
-## Step 3: Disable SMTP Plugins
-
-**Critical**: SMTP plugins must be disabled before import to prevent email sending attempts during development.
-
-### Common SMTP Plugin Deactivation Commands
-
-Execute these WP-CLI commands in your DDEV container:
+Deactivate SMTP plugins before import to prevent email sending:
 
 ```bash
-# WP Mail SMTP
-ddev wp plugin deactivate wp-mail-smtp
+# Common SMTP plugins
+ddev wp plugin deactivate wp-mail-smtp easy-wp-smtp post-smtp wp-smtp smtp-mailer mailgun sendgrid-email-delivery-simplified wp-ses
 
-# Easy WP SMTP
-ddev wp plugin deactivate easy-wp-smtp
-
-# Post SMTP Mailer
-ddev wp plugin deactivate post-smtp
-
-# WP SMTP
-ddev wp plugin deactivate wp-smtp
-
-# SMTP Mailer
-ddev wp plugin deactivate smtp-mailer
-
-# Mailgun Official
-ddev wp plugin deactivate mailgun
-
-# SendGrid Email Delivery
-ddev wp plugin deactivate sendgrid-email-delivery-simplified
-
-# WP SES
-ddev wp plugin deactivate wp-ses
-
-# Check for any active SMTP-related plugins
+# Verify no SMTP plugins active
 ddev wp plugin list --status=active | grep -i smtp
 ```
 
-## Step 4: Import Database
+### 3. Import Database
 
-1. **Copy database file to DDEV project root**:
-   ```bash
-   cp /path/to/backup/database.sql .
-   ```
+```bash
+# Import database
+ddev import-db --src=/path/to/backup/database.sql
 
-2. **Import database using DDEV**:
-   ```bash
-   ddev import-db --src=database.sql
-   ```
+# Update URLs
+ddev wp search-replace 'https://production-site.com' 'https://yourproject.ddev.site'
+ddev wp search-replace 'http://production-site.com' 'https://yourproject.ddev.site'
+```
 
-3. **Update site URLs**:
-   ```bash
-   ddev wp search-replace 'https://yoursite.com' 'https://yourproject.ddev.site'
-   ddev wp search-replace 'http://yoursite.com' 'https://yourproject.ddev.site'
-   ```
+### 4. Import Files
 
-## Step 5: Import Files
+```bash
+# Backup existing wp-content (optional)
+mv wp-content wp-content-backup
 
-1. **Backup existing wp-content** (optional):
-   ```bash
-   mv wp-content wp-content-backup
-   ```
+# Copy wp-content from backup
+cp -r /path/to/backup/wp-content .
 
-2. **Copy wp-content from backup**:
-   ```bash
-   cp -r /path/to/backup/wp-content .
-   ```
+# Set permissions
+ddev exec chown -R www-data:www-data wp-content
+ddev exec chmod -R 755 wp-content
+```
 
-3. **Set proper permissions**:
-   ```bash
-   ddev exec chown -R www-data:www-data wp-content
-   ddev exec chmod -R 755 wp-content
-   ```
+### 5. Post-Import Configuration
 
-## Step 6: Post-Import Configuration
+```bash
+# Flush rewrite rules
+ddev wp rewrite flush
 
-### Update WordPress Configuration
+# Update admin password
+ddev wp user update admin --user_pass=admin
 
-1. **Flush rewrite rules**:
-   ```bash
-   ddev wp rewrite flush
-   ```
+# Verify URLs
+ddev wp option get home
+ddev wp option get siteurl
+```
 
-2. **Update user passwords** for local development:
-   ```bash
-   ddev wp user update admin --user_pass=admin
-   ```
+### 6. Development Setup
 
-3. **Verify site functionality**:
-   ```bash
-   ddev wp option get home
-   ddev wp option get siteurl
-   ```
+```bash
+# Enable debug mode in wp-config.php
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 
-### Development Environment Adjustments
-
-1. **Enable debug mode** in `wp-config.php`:
-   ```php
-   define('WP_DEBUG', true);
-   define('WP_DEBUG_LOG', true);
-   define('WP_DEBUG_DISPLAY', false);
-   ```
-
-2. **Configure local mail handling**:
-   ```bash
-   # Install MailHog for email testing
-   ddev get drud/ddev-mailhog
-   ddev restart
-   ```
+# Install MailHog for email testing
+ddev get drud/ddev-mailhog
+ddev restart
+```
 
 ## Troubleshooting
 
-### Common Issues
+**Database Issues**: Check dump corruption, encoding, DDEV database service status
 
-**Database Import Errors**:
-- Ensure database dump is not corrupted
-- Check for character encoding issues
-- Verify DDEV database service is running
-
-**File Permission Issues**:
+**Permission Issues**:
 ```bash
 ddev exec find wp-content -type d -exec chmod 755 {} \;
 ddev exec find wp-content -type f -exec chmod 644 {} \;
@@ -155,38 +92,13 @@ ddev exec find wp-content -type f -exec chmod 644 {} \;
 
 **Plugin Conflicts**:
 ```bash
-# Deactivate all plugins temporarily
-ddev wp plugin deactivate --all
-
-# Reactivate plugins one by one for testing
-ddev wp plugin activate plugin-name
+ddev wp plugin deactivate --all  # Temporarily disable all plugins
 ```
 
-**Memory or Timeout Issues**:
-```bash
-# Increase PHP limits in .ddev/config.yaml
-php_version: "8.1"
-webimage_extra_packages: [php8.1-gd]
-```
+**Memory/Timeout**: Increase PHP limits in `.ddev/config.yaml`
 
-### Verification Steps
-
-1. **Check site accessibility**: Visit `https://yourproject.ddev.site`
-2. **Verify admin access**: Login with updated credentials  
-3. **Test core functionality**: Navigation, media, plugins
-4. **Check email handling**: Confirm MailHog is capturing emails
-
-## Security Considerations
+## Security Notes
 
 - Never commit production database dumps to version control
-- Remove or obfuscate sensitive data in development environment
-- Use `.ddev/import-db/` directory for automatic cleanup of database files
-- Regularly update local development dependencies
-
-## Best Practices
-
-- **Document the import process** specific to your project
-- **Create import scripts** for recurring imports
-- **Use staging environments** for testing before local import
-- **Maintain separate development datasets** when possible
-- **Regular backup cleanup** to prevent storage bloat
+- Use `.ddev/import-db/` directory for automatic cleanup
+- Remove sensitive data from development environment
