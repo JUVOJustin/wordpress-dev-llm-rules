@@ -86,3 +86,4 @@ Use the context7 mcp server if it is available to lookup examples or documentati
 * Advanced Custom Field Pro ACF (Custom Fields, Post Types, Taxonomies): `/advancedcustomfields/acf`
 * WP Gridbuilder (Filtering, Facets): `/context7/wpgridbuilder`
 * WS Form (Forms that are highly dynamic and can be customized using code): `/context7/wsform-knowledgebase`
+* Automatic.css ACSS (Modern css framework that closely works with etch builder, bricks builder or standalone): `/context7/automaticcss`
