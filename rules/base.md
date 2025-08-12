@@ -78,3 +78,11 @@ For comprehensive PHPStan configuration, third-party class handling, REST API ty
 2. **Syntax**: `readme.txt` → strict wp.org subset; `README.md` → full Markdown.
 3. **Metadata**: Only `readme.txt` controls plugin header fields, screenshots, and changelog on wp.org.
 4. **Governance**: You **must** comply with the `readme.txt` template; you’re free to do whatever you like with `README.md`.
+
+
+## Context Retrieval
+Use the context7 mcp server if it is available to lookup examples or documentation to get more details about tools, plugins and software. The following libraries are out of interest. Call them directly with their id:
+* Bricks Builder (Page Builder for WordPress): `/digisavvy-inc/bricks-builder-docs`
+* Advanced Custom Field Pro ACF (Custom Fields, Post Types, Taxonomies): `/advancedcustomfields/acf`
+* WP Gridbuilder (Filtering, Facets): `/context7/wpgridbuilder`
+* WS Form (Forms that are highly dynamic and can be customized using code): `/context7/wsform-knowledgebase`
