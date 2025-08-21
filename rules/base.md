@@ -17,7 +17,6 @@ Base Coding rules for WordPress. ALWAYS read this when working on a WordPress pr
 - Use **Yoda Conditions** for all conditional expressions
 - Default to a **minimum PHP compatibility of 8.0** (unless another version is explicitly requested)
 - **Strong typings**: Use PHPStan doc block notation (especially for array type hints)
-- **Naming**: Use lowercase letters in variable, action/filter, and function names (never camelCase). Separate words via underscores. Don’t abbreviate variable names unnecessarily; let the code be unambiguous and self-documenting.
 - **Object-Oriented Approach**: Write OOP code by default unless the user asks for procedural/non-OOP structure (e.g., `functions.php`)
 - **File Operations**: Use `WP_Filesystem` APIs instead of PHP native file functions whenever possible
 - **Error Handling & Exception Logging**:
@@ -30,6 +29,17 @@ Base Coding rules for WordPress. ALWAYS read this when working on a WordPress pr
     - `get_post_datetime()` post time as DateTimeImmutable
     - `get_post_timestamp()` post time as Unix timestamp.
     - `wp_date( string $format, int $timestamp = null, DateTimeZone $timezone = null ): string|false`. Timestamp is the curent time by default. Timezone defaults to timezone from site settings.
+
+#### Naming
+ALWAYS adhere to the naming conventions outlined in this example:
+```php
+function some_name( $some_variable ) {}
+class Walker_Category extends Walker {}
+class WP_HTTP {}
+interface Mailer_Interface {}
+trait Forbid_Dynamic_Properties {}
+enum Post_Status {}
+```
 
 ### JavaScript Guidelines
 
