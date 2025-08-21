@@ -17,10 +17,9 @@ Base Coding rules for WordPress. ALWAYS read this when working on a WordPress pr
 - Use **Yoda Conditions** for all conditional expressions
 - Default to a **minimum PHP compatibility of 8.0** (unless another version is explicitly requested)
 - **Strong typings**: Use PHPStan doc block notation (especially for array type hints)
-- **Object-Oriented Approach**:  
-  Write OOP code by default unless the user asks for procedural/non-OOP structure (e.g., `functions.php`)
-- **File Operations**:  
-  Use `WP_Filesystem` APIs instead of PHP native file functions whenever possible
+- **Naming**: Use lowercase letters in variable, action/filter, and function names (never camelCase). Separate words via underscores. Don’t abbreviate variable names unnecessarily; let the code be unambiguous and self-documenting.
+- **Object-Oriented Approach**: Write OOP code by default unless the user asks for procedural/non-OOP structure (e.g., `functions.php`)
+- **File Operations**: Use `WP_Filesystem` APIs instead of PHP native file functions whenever possible
 - **Error Handling & Exception Logging**:
     - In non-production: Use `wp_trigger_error( $function_name, $message, $error_level )` at the appropriate level
     - In specific contexts (e.g., Action Scheduler in production), direct Exception throwing may be required—do **not** use `wp_trigger_error` in those cases
