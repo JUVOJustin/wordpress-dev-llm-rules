@@ -18,4 +18,4 @@ Running commands like npm,yarn and composer have to be executed inside of ddevs 
 
 ### Documentation
 * `ddev` command usage: https://ddev.readthedocs.io/en/stable/users/usage/cli/
-* 
+* Use context7 tool with the library `ddev/ddev` to ask more in detail questions
