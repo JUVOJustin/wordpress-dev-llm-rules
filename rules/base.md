@@ -72,27 +72,15 @@ enum Post_Status {}
 ### Static code analysis (PHPStan)
 For comprehensive PHPStan configuration, third-party class handling, REST API typings, and WordPress-specific patterns, see `rules/quality-assurance/phpstan.md`.
 
-## Documentation & Repository Files
-
-### README files
-
-| File             | Purpose & Audience                                                                                                                      | Required Format                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Governance                                                                                                                         |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| **`readme.txt`** | Mandatory for assets published via the WordPress .org Plugin Directory. Parsed by wp.org to generate the plugin listing and change-log. | *Plain-text* with the canonical WordPress readme header and section order:<br>`=== Plugin Name ===`<br>`Contributors:` …<br>`Tags:` …<br>`Requires at least:` …<br>`Tested up to:` …<br>`Requires PHP:` …<br>`Stable tag:` …<br><br>Followed by the standard headings (in this order):<br>`== Description ==`<br>`== Installation ==`<br>`== Screenshots ==`<br>`== Frequently Asked Questions ==`<br>`== Changelog ==`<br>`== Upgrade Notice ==`<br><br>- Use limited wp.org markup (`*italic*`, `**bold**`, back-ticked code).<br>- No tables, HTML, or GitHub-only Markdown extensions.<br>- Keep the first 150 characters of *Description* marketing-focused: that snippet is shown in search results. | **Must** follow these rules. Treated as the single source of truth for plugin meta-data across all distribution channels.          |
-| **`README.md`**  | Optional, aimed at developers browsing the repository (e.g., on GitHub, GitLab, Bitbucket).                                             | Any valid Markdown. Badges, tables, images, extended syntax all allowed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Its structure, tone, and tooling badges are left entirely to the repository maintainers. |
-
-#### Practical Differences (TL;DR)
-
-1. **Consumer**: `readme.txt` is machine-read by WordPress.org; `README.md` is human-read by developers.
-2. **Syntax**: `readme.txt` → strict wp.org subset; `README.md` → full Markdown.
-3. **Metadata**: Only `readme.txt` controls plugin header fields, screenshots, and changelog on wp.org.
-4. **Governance**: You **must** comply with the `readme.txt` template; you’re free to do whatever you like with `README.md`.
-
-
 ## Context Retrieval
-Use the context7 mcp server if it is available to lookup examples or documentation to get more details about tools, plugins and software. The following libraries are out of interest. Call them directly with their id:
-* Bricks Builder (Page Builder for WordPress): `/digisavvy-inc/bricks-builder-docs`
-* Advanced Custom Field Pro ACF (Custom Fields, Post Types, Taxonomies): `/advancedcustomfields/acf`
-* WP Gridbuilder (Filtering, Facets): `/context7/wpgridbuilder`
-* WS Form (Forms that are highly dynamic and can be customized using code): `/context7/wsform-knowledgebase`
-* Automatic.css ACSS (Modern css framework that closely works with etch builder, bricks builder or standalone): `/context7/automaticcss`
+Use mcp tool if available to lookup examples or documentation to get more details about tools, plugins and software. The following libraries are of interest. Call them directly with their id:
+
+|ID|Name|Description|MCP Server
+|---|---|---|---|
+|/digisavvy-inc/bricks-builder-docs|Bricks Builder|Agency focused Page/Theme Builder|context7|
+|/advancedcustomfields/acf|Advanced Custom Field Pro (ACF)|Adding Custom Fields, Post Types, Taxonomies|context7|
+|/context7/wpgridbuilder|WP Gridbuilder|Advanced filtering of queries using Facets|context7|
+|/context7/wsform-knowledgebase|WS Form|Forms that are highly dynamic and can be customized using code|context7|
+|/context7/automaticcss|Automatic.css (ACSS)|Modern css framework that closely works with etch builder, bricks builder or standalone|context7|
+|/wordpress/abilities-api|Abilities API|Declaring and discovering abilities in a standardized way. Can expose Abilities to AI.|context7|
+|/wordpress/mcp-adapter|MCP Adapter|MCP integration that allows developers to expose abilities, registered with abilities API, as Model Context Protocol (MCP) tools, resources, and prompts for AI agents.|context7|
