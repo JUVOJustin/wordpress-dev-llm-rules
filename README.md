@@ -8,6 +8,11 @@ This repository contains structured rules and patterns that help LLMs generate b
 
 ## 🚀 Quick Start
 
+### Instruct AI to setup rules
+My plugin boilerplate uses this command to instruct AI to clone and add the rules: https://raw.githubusercontent.com/JUVOJustin/wordpress-plugin-boilerplate/refs/heads/main/.opencode/command/rules-upsert.md
+
+This command is setup for github copilot and opencode integration. You can adjust the folders to your setup
+
 ### For LLM Integration
 
 * **Copying Rules**: You can copy rules from this repository to your LLM integration tool. Full control over the rules you want to use!
