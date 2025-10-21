@@ -72,14 +72,6 @@ enum Post_Status {}
 ### Static code analysis (PHPStan)
 For comprehensive PHPStan configuration, third-party class handling, REST API typings, and WordPress-specific patterns, see `rules/quality-assurance/phpstan.md`.
 
-#### Practical Differences (TL;DR)
-
-1. **Consumer**: `readme.txt` is machine-read by WordPress.org; `README.md` is human-read by developers.
-2. **Syntax**: `readme.txt` → strict wp.org subset; `README.md` → full Markdown.
-3. **Metadata**: Only `readme.txt` controls plugin header fields, screenshots, and changelog on wp.org.
-4. **Governance**: You **must** comply with the `readme.txt` template; you’re free to do whatever you like with `README.md`.
-
-
 ## Context Retrieval
 Use mcp tool if available to lookup examples or documentation to get more details about tools, plugins and software. The following libraries are of interest. Call them directly with their id:
 
