@@ -77,6 +77,7 @@ Use mcp tool if available to lookup examples or documentation to get more detail
 
 |ID|Name|Description|MCP Server
 |---|---|---|---|
+|/woocommerce/action-scheduler|Action Scheduler|Job queue for background processing of tasks in WordPress.Designed for distribution in plugins.|context7|
 |/digisavvy-inc/bricks-builder-docs|Bricks Builder|Agency focused Page/Theme Builder|context7|
 |/advancedcustomfields/acf|Advanced Custom Field Pro (ACF)|Adding Custom Fields, Post Types, Taxonomies|context7|
 |/context7/wpgridbuilder|WP Gridbuilder|Advanced filtering of queries using Facets|context7|
